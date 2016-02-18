@@ -1,0 +1,21 @@
+<head>
+  <title>textcircle3</title>
+</head>
+
+<body>
+  <h1>Welcome to Meteor!</h1>
+  {{> date_display}}
+  {{> hello}}
+</body>
+
+<template name="date_display">
+    {{current_date}}
+    {{myVar}}
+    <br>
+</template>
+
+
+<template name="hello">
+  <button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+</template>
