@@ -45,8 +45,11 @@ Meteor.methods({
         if (!eusers) {
             eusers = {
                 docid:doc._id,
+                users:{},
             }; 
         }
+        user.lastEdit = new Date();
+        eusers.users[this.userId] = user;
         EditingUsers.upsert({_id:eusers._id},eusers); //upsert : insert only if it is not existed.
     }
 }) 
