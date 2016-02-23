@@ -49,6 +49,18 @@ if (Meteor.isClient) {
             return users;
         }     
     });
+
+    ////////////
+    ///events
+    ////////////
+
+    Template.navbar.events({
+        "click .js-add-doc":function(event) {
+            event.preventDefault();
+            console.log("Add a new doc");
+        } 
+    })
+    
 }
 
 if (Meteor.isServer) {
@@ -62,7 +74,6 @@ if (Meteor.isServer) {
 Meteor.methods({
     addEditingUser:function(){
         var doc, user, eusers;
-        doc = Documents.findOne();
         if (!doc) {return;} //no doc, so return
         if (!this.userId) {return;} //no user, so return
         user = Meteor.user().profile;

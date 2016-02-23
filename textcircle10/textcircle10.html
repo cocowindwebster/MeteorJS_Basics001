@@ -1,16 +1,11 @@
 <!-- remember to do : meteor add mizzao:sharejs-codemirror  -->
 <!-- remember to do : meteor add twbs:bootstrap -->
 <head>
-  <title>TextCircle8</title>
+  <title>TextCircle10</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-         <div class="container">
-             <a class="navbar-brand" href="#">TextCircle</a>
-             <p class="navbar-text navbar-right">{{>loginButtons align="right"}}</p>
-         </div> <!-- nav bar container -->
-    </nav>
+    {{> navbar}}
     <div class="container top-margin">
         <div class="row">
             <div class="col-md-12">
@@ -27,6 +22,25 @@
         </div>
     </div>
 </body>
+
+
+<template name="navbar">
+    <nav class="navbar navbar-default navbar-fixed-top">
+         <div class="container">
+             <ul class="nav navbar-nav">
+                 <li>
+                     <a href="#" class="js-add-doc">
+                         <span class="glyphicon glyphicon-plus" aria-hidden="true">
+                         </span>
+                         view document
+                     </a>
+                 </li>
+             </ul>
+             <a class="navbar-brand" href="#">TextCircle</a>
+             <p class="navbar-text navbar-right">{{>loginButtons align="right"}}</p>
+         </div> <!-- nav bar container -->
+    </nav>
+</template>
 
 <template name="editor">
     {{>sharejsCM docid=docid onRender=config id="editor"}}
