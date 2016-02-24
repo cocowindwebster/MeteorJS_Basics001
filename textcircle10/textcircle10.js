@@ -57,7 +57,13 @@ if (Meteor.isClient) {
             if (!Meteor.user()) { //check if user is login, from client.
                 alert("You need to login first!");
             } else {                
-                Meteor.call("addDoc");
+                //var id = Meteor.call("addDoc");
+                var id = Meteor.call("addDoc", function(err, res){
+                    if (!err) {
+                        console.log("event callback received id : " + res);
+                        Session.set("docid", res);
+                    }
+                });
             }
 
         } 
@@ -80,7 +86,9 @@ Meteor.methods({
            return;
        } else {
            doc = {owner:this.userId, createdOn:new Date(), title:"my new doc"};
-           Documents.insert(doc);
+           var id = Documents.insert(doc);
+           console.log("addDoc method got an id : " + id);
+           return id;
        }
 
     
