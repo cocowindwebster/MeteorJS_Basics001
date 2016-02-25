@@ -46,12 +46,6 @@ if (Meteor.isClient) {
         }     
     });
 
-
-    Template.navbar.helpers({
-        documents : function (){
-            return Documents.find({});
-        } 
-    });
     ////////////
     ///events
     ////////////
@@ -71,12 +65,10 @@ if (Meteor.isClient) {
                     }
                 });
             }
-        }, 
-        "click .js-load-doc":function(event) {
-            console.log(this);
-            Session.set("docid", this._id)
-        }
+
+        } 
     })
+    
 }
 
 if (Meteor.isServer) {
