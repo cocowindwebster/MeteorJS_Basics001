@@ -44,19 +44,32 @@ if (Meteor.isClient) {
             }
             return users;
         }     
-    });
+    })
 
     Template.navbar.helpers({
         documents:function (){
             return Documents.find({});
         }
-    });
+    })
 
     Template.docMeta.helpers({
-        documents : function () {
+        document:function () {
             return Documents.findOne({_id:Session.get("docid")});
         }
     })
+
+    Template.editableText.helpers({
+        userCanEdit : function(doc, connection) {
+            //can edit if the current doc is owned by Me
+            doc = Documents.findOne({_id : Session.get("docid"), owner : Meteor.userId()});
+            if (doc){
+                return true;
+            } else {
+                return false;
+            }
+        }
+    })
+
     ////////////
     ///events
     ////////////
@@ -79,7 +92,7 @@ if (Meteor.isClient) {
         },
         "click .js-load-doc":function(event) {
             console.log(this);
-            Session.get("docid", this._id)
+            Session.set("docid", this._id)
         }
     })
 }
