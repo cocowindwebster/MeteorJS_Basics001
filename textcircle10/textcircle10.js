@@ -20,8 +20,7 @@ if (Meteor.isClient) {
             }   
         }
 
-    });
-
+    })
 
     Template.editingUsers.helpers({
         users:function() {
@@ -95,7 +94,16 @@ if (Meteor.isClient) {
             Session.set("docid", this._id)
         }
     })
-}
+    Template.docMeta.events({
+        "click .js-tog-private":function(event) {
+            console.log(event.target.checked);
+            var doc = {_id:Session.get("docid"), isPrivate:event.target.checked};
+            console.log("doc is ->");
+            console.log(doc)
+            Meteor.call("updateDocPrivacy", doc);
+        }
+    })
+} //end isClient
 
 if (Meteor.isServer) {
     Meteor.startup(function () {
@@ -119,6 +127,17 @@ Meteor.methods({
 
     
     },
+
+    updateDocPrivacy:function(doc){
+        console.log("updateDocPrivacy method");
+        console.log(doc);
+        var realDoc = Documents.findOne({_id : doc._id});
+        if (realDoc) {
+            realDoc.isPrivate = doc.isPrivate;
+            Documents.update({_id : doc._id}, realDoc);
+        }
+    },
+
     addEditingUser:function(){
         var doc, user, eusers;
         if (!doc) {return;} //no doc, so return
