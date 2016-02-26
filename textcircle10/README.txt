@@ -1,2 +1,8 @@
-1._multidoc_1_a_button_to_create_2_insert_new_doc_to_MongoDB_3_Sessions_4_AsyncMethods
-2. editable title
+multidoc
+a button to create
+insert new doc to MongoDB
+sessions
+asyncMethods
+editable title
+add checkbox to make an article private or not private
+publish and subscribe model

@@ -2,6 +2,8 @@ this.Documents = new Mongo.Collection("documents");
 EditingUsers = new Mongo.Collection("editingUsers");
 
 if (Meteor.isClient) {
+    Meteor.subscribe("documents");
+    Meteor.subscribe("editingUsers");
     Template.editor.helpers({
         docid:function() {
             setupCurrentDocument();
@@ -47,7 +49,7 @@ if (Meteor.isClient) {
 
     Template.navbar.helpers({
         documents:function (){
-            return Documents.find({});
+            return Documents.find({isPrivate:false});
         }
     })
 
@@ -111,8 +113,19 @@ if (Meteor.isServer) {
           Documents.insert({title : "my new documents"});
       }
     });
+    //why the filtering of "isPrivate:false" should be in the server?
+    //if it is in the client, then malicious user can steal using the console to get those information. This is insecure.
+    Meteor.publish("documents", function(){
+        return Documents.find({isPrivate:false});
+    })
+
+    Meteor.publish("editingUsers", function(){
+        return EditingUsers.find();
+    })
 }
 
+// You can regard Meteor.methods as a way to control WRITE access to the database.
+// publish and substribe is to control READ access to the database.
 Meteor.methods({
     addDoc:function(){
        var doc;
