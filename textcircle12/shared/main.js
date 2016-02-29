@@ -25,8 +25,9 @@ Meteor.methods({
         }
     },
 
-    addEditingUser:function(){
+    addEditingUser:function(docid){
         var doc, user, eusers;
+        doc = Documents.findOne({_id:docid});
         if (!doc) {return;} //no doc, so return
         if (!this.userId) {return;} //no user, so return
         user = Meteor.user().profile;
