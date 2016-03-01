@@ -4,10 +4,9 @@
 
 <body>
   <h1>Welcome to Meteor!</h1>
-
   {{> my_image}}
 </body>
 
 <template name="my_image">
-    <img src = "1.png" alt = "this is a image"/> 
+<img src = "{{image_source}}" alt = "{{image_alt}}"/> 
 </template>
