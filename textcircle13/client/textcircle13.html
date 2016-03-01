@@ -1,10 +1,8 @@
-<!-- remember to do : meteor add mizzao:sharejs-codemirror  -->
-<!-- remember to do : meteor add twbs:bootstrap -->
+<template name="ApplicationLayout">
 <head>
   <title>TextCircle13</title>
 </head>
-
-<body>
-    {{> navbar}}
-</body>
+    {{> yield  "header"}}
+    {{> yield  "main"}}
+</template>
 

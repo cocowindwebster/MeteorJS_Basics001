@@ -22,3 +22,4 @@ ian:accounts-ui-bootstrap-3
 mizzao:sharejs-codemirror
 twbs:bootstrap
 babrahams:editable-text
+iron:router
