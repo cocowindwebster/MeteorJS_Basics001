@@ -15,7 +15,11 @@
     <div class="col-xs-12 col-md-3" >
         <!-- if a narrow screen, use all 12 columns to display one image, if a mid-size screen, use 3 columns -->
         <div class="thumbnail">
-            <img src = "{{image_source}}" alt = "{{image_alt}}"/> 
+            <!-- a simple js funciton in normal js way
+            <img onclick = "alert('hello!')" src = "{{image_source}}" alt = "{{image_alt}}"/> 
+            -->
+            <!-- a simple js funciton in Meteor way -->
+            <img class="js-image" src = "{{image_source}}" alt = "{{image_alt}}"/> 
             <div class="caption">
                 <h3>thumbnail label</h3>
                 <p> description</p>
