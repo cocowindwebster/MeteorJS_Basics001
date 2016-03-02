@@ -12,7 +12,8 @@
 <template name="my_image">
 <div class="row">
 {{#each images}}
-    <div class="col-xs-12 col-md-3" >
+<!--the id is created for JQuery, so that it can show delete animation -->
+<div class="col-xs-12 col-md-3" id = "{{_id}}">
         <!-- if a narrow screen, use all 12 columns to display one image, if a mid-size screen, use 3 columns -->
         <div class="thumbnail">
             <!-- a simple js funciton in normal js way
@@ -22,7 +23,8 @@
             <img class="js-image" src = "{{image_source}}" alt = "{{image_alt}}"/> 
             <div class="caption">
                 <h3>thumbnail label</h3>
-                <p> description</p>
+                <p> description of the image</p>
+                <button class="js-del-image btn btn-warning"> delete </button>
             </div>
         </div>
     </div> <!-- col -->

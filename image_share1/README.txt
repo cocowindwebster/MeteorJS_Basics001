@@ -3,3 +3,5 @@
 3. In html Template, iterate through variables, which are passed from javascript 
 4. Add bootstrap package, and put three images in the bootstrap grid, demonstrating bootstrap grid responsive feature.
 5. Responding to use input
+6. Nice bootstrap button.
+7. Delete an image, and use JQuery to show a slow animation for better UX.
