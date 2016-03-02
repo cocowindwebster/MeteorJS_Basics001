@@ -1,6 +1,17 @@
 // You can regard Meteor.methods as a way to control WRITE access to the database.
 // publish and substribe is to control READ access to the database.
+
 Meteor.methods({
+    addComment:function(comment){
+        console.log("addComment method running")
+        if (this.userId) {
+            comment.createdOn = new Date();
+            comment.userId = this.userId;
+            return Comments.insert(comment);
+        }
+        return;
+    },
+
     addDoc:function(){
        var doc;
        if (!this.userId) {

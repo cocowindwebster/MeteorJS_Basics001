@@ -23,3 +23,5 @@ mizzao:sharejs-codemirror
 twbs:bootstrap
 babrahams:editable-text
 iron:router
+aldeed:autoform
+aldeed:collection2
