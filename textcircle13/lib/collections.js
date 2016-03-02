@@ -13,9 +13,9 @@ Comments.attachSchema(new SimpleSchema ({
         max:1000
     },
     docid:{
-        type: String
+        type: String,
     },
-    ownder:{
-        type: String
-    }
+    owner:{
+        type: String,
+    },
 }));

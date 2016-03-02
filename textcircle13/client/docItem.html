@@ -65,7 +65,7 @@ Editors:
 </template>
 
 <template name="insertCommentForm2"> 
-    {{> quickForm collection="Comments" id="insertCommentForm" type="method" meteormethod="addComment" }}
+    {{> quickForm collection="Comments" id="insertCommentForm" type="method" meteormethod="addComment"}}
 </template>
 
 <template name="insertCommentForm"> 
@@ -75,6 +75,7 @@ Editors:
         {{> afQuickField name='title'}}
         {{> afQuickField name='body' rows=6 value="write your comment here"}}
         {{> afQuickField name='docid' value=docid type="hidden"}}
+        {{> afQuickField name='owner' value=123 type="hidden"}}
     </fieldset>
     <button type="submit" class="btn btn-primary">Insert</button>
     {{/autoForm}}
