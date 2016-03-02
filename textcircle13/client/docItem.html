@@ -18,6 +18,7 @@
                 {{> viewer}}
             </div>
         </div>
+        {{> commentList}}
         {{> insertCommentForm}}
     </div> <!-- end of docItem container -->
 </template>
@@ -51,6 +52,16 @@ Editors:
 {{#each users}}
 <span class="label label-success">{{lastEdit}}</span>
 {{/each}}
+</template>
+
+<template name="commentList"> 
+    {{#each comments}}
+    <ul>
+        <li>{{title}}
+        <p>{{body}}</p>
+        </li>
+    </ul>
+    {{/each}}
 </template>
 
 <template name="insertCommentForm2"> 

@@ -14,5 +14,8 @@ Comments.attachSchema(new SimpleSchema ({
     },
     docid:{
         type: String
+    },
+    ownder:{
+        type: String
     }
 }));
