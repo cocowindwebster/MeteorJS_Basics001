@@ -26,7 +26,10 @@ if (Meteor.isClient) {
     // with this property structure, html TEMPLATE can iterate
     // looks like a comma ending a line, can be either omitted or kept
     //Template.my_image.helpers({images:image_data}); 
-    Template.my_image.helpers({images:Images.find()}); 
+    Template.my_image.helpers({images:
+                              Images.find(
+                                  {}, {sort:{rating:-1}}
+    )}); 
 
     Template.my_image.events({
         //bind event lisenter to this Template, named "my_image"
@@ -46,9 +49,16 @@ if (Meteor.isClient) {
             $("#"+image_id).hide("show", function(){
                 Images.remove({"_id":image_id});
             });
-        }
-    
-       });
+        },
+
+        'click .js-rate-image':function(event){
+            var rating = $(event.currentTarget).data("userrating");
+            var image_id = this.id;
+            console.log("js-rate-image, you clicked a star, rating = " + rating + ", image_id = " + image_id);
+            Images.update({"_id":image_id}, {$set:{rating:rating}});
+             
+        }   
+    });
 
 }
 
