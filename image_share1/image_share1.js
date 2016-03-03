@@ -58,7 +58,11 @@ if (Meteor.isClient) {
             console.log("js-rate-image, you clicked a star, rating = " + rating + ", image_id = " + image_id);
             Images.update({"_id":image_id}, {$set:{rating:rating}});
              
-        }   
+        },
+
+        'click .js-show-image-form':function() {
+            $("#image_add_form").modal("show");
+        }
     });
 
     Template.image_add_form.events({
@@ -74,6 +78,7 @@ if (Meteor.isClient) {
                 image_alt:img_alt,
                 createdOn: new Date()
             });
+            $("#image_add_form").modal("hide");
             return false; // if you omit this line, the browser will just reload after the submit button is created. "return a false value" is a usual practice when dealding with form submission.
         }
     });
