@@ -1,0 +1,66 @@
+<head>
+  <title>image_share2</title>
+</head>
+
+<body>
+  {{>image_add_form}} 
+  <nav class = "navbar navbar-default navbar-fixed-top">
+      <div class="container">
+          {{> loginButtons}}
+      </div>
+</nav>
+  <div class="container"> <!-- in bootstrap, you should wrap the whole thing in a container-->
+      <h1>Welcome to Image Share!</h1> 
+      {{> my_image}}
+  </div>
+</body>
+
+<template name="image_add_form" >
+    <div class="modal fade" id = "image_add_form">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form class="js-add-image">
+                        <input type = "text" name="img_src"/>
+                        <br/>
+                        <input type = "text" name="img_alt"/>
+                        <button class="btn btn-success">save</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class= "btn btn-warning" data-dismiss="modal"> cancel </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="my_image">
+<button class = "btn btn-success js-show-image-form">add image</button>
+<div class="row">
+{{#each images}}
+<!--the id is created for JQuery, so that it can show delete animation -->
+<div class="col-xs-12 col-md-3" id = "{{_id}}">
+        <!-- if a narrow screen, use all 12 columns to display one image, if a mid-size screen, use 3 columns -->
+        <div class="thumbnail">
+            <!-- a simple js funciton in normal js way
+            <img onclick = "alert('hello!')" src = "{{image_source}}" alt = "{{image_alt}}"/> 
+            -->
+            <!-- a simple js funciton in Meteor way -->
+            <img class="js-image thumbnail-img" src = "{{image_source}}" alt = "{{image_alt}}"/> 
+            <div class="caption">
+                <h3>Rating : {{rating}}</h3>
+                <p>{{image_alt}}</p>
+                <!-- passing argument, so "id = _id" is passed to the starsRating template --> 
+                <p>{{>starsRating mutable=true class="js-rate-image" id=_id}}</p>
+                <button class="js-del-image btn btn-warning"> delete </button>
+            </div>
+        </div>
+    </div> <!-- col -->
+{{/each}}
+</div> <!-- row -->
+</template>
