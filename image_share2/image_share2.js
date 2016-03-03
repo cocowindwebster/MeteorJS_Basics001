@@ -31,6 +31,29 @@ if (Meteor.isClient) {
                                   //{}, {sort:{rating:-1}}
                                   {}, {sort:{createdOn : -1, rating : -1}} // sort by the date first, then by the rating
     )}); 
+    
+    // the template tag can be either default, ie. "body", or custumized, ie. "my_image".
+    Template.body.helpers({username: function(){
+           // the way to access users is by calling Meteor built-in function.
+           // Meteor.user() is a REACTIVE data source. This means:
+           // Meteor is rander the template as quickly as possible, so it will print this log before it detects a user is logged in.
+           // Once it detects a user is logged in, the data that Meteor template is depending on is changed. In reactive model, this change
+           // of data will make the Meteor template to render again.
+           // hence the console.log will give two output 
+           // Exception in template helper: TypeError: Cannot read property 'emails' of undefined
+           // test@test.com
+           //console.log(Meteor.user().emails[0].address);
+            
+            //quick fix: add a if condition
+           if (Meteor.user()) {
+               console.log(Meteor.user().emails[0].address);
+               return Meteor.user().emails[0].address;
+           } else {
+               return "anonymous"
+           }
+        }
+    }); 
+
 
     Template.my_image.events({
         //bind event lisenter to this Template, named "my_image"

@@ -5,12 +5,12 @@
 <body>
   {{>image_add_form}} 
   <nav class = "navbar navbar-default navbar-fixed-top">
-      <div class="container">
+      <div class="container ">
           {{> loginButtons}}
       </div>
 </nav>
   <div class="container"> <!-- in bootstrap, you should wrap the whole thing in a container-->
-      <h1>Welcome to Image Share!</h1> 
+      <h1>Welcome to Image Share!{{username}}</h1> 
       {{> my_image}}
   </div>
 </body>
@@ -40,7 +40,9 @@
 </template>
 
 <template name="my_image">
+{{#if currentUser}}
 <button class = "btn btn-success js-show-image-form">add image</button>
+{{/if}}
 <div class="row">
 {{#each images}}
 <!--the id is created for JQuery, so that it can show delete animation -->
