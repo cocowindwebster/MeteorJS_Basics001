@@ -20,6 +20,11 @@ if (Meteor.isClient) {
     }
     ];
     
+    //call a funciton, and some properties as argument.
+    Accounts.ui.config({
+        passwordSignupFields : "USERNAME_AND_EMAIL"
+    });
+
     //bind data to this Template, named "my_image"
     // instead of passing an ARRAY called image_data, pass a property that 
     // has KEY "images", and VALUE "image_data"
@@ -46,8 +51,8 @@ if (Meteor.isClient) {
             
             //quick fix: add a if condition
            if (Meteor.user()) {
-               console.log(Meteor.user().emails[0].address);
-               return Meteor.user().emails[0].address;
+               console.log(Meteor.user().emails[0].address );
+               return Meteor.user().username;
            } else {
                return "anonymous"
            }
