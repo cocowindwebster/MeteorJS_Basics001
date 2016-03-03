@@ -57,6 +57,8 @@
             <div class="caption">
                 <h3>Rating : {{rating}}</h3>
                 <p>{{image_alt}}</p>
+                <!-- call a function "getUser()", and pass argument -->
+                <p>User: {{getUser createdBy}}</p>
                 <!-- passing argument, so "id = _id" is passed to the starsRating template --> 
                 <p>{{>starsRating mutable=true class="js-rate-image" id=_id}}</p>
                 <button class="js-del-image btn btn-warning"> delete </button>

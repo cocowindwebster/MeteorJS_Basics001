@@ -31,11 +31,17 @@ if (Meteor.isClient) {
     // with this property structure, html TEMPLATE can iterate
     // looks like a comma ending a line, can be either omitted or kept
     //Template.my_image.helpers({images:image_data}); 
-    Template.my_image.helpers({images:
-                              Images.find(
-                                  //{}, {sort:{rating:-1}}
-                                  {}, {sort:{createdOn : -1, rating : -1}} // sort by the date first, then by the rating
-    )}); 
+    Template.my_image.helpers({
+        images: Images.find({}, {sort:{createdOn : -1, rating : -1}}),     // sort by the date first, then by the rating
+        getUser:function (user_id) {
+           var user = Meteor.users.findOne({_id:user_id}); 
+           if (user) {
+               return user.username;
+           } else {
+               return "anonymous";
+           }
+        }
+    }); 
     
     // the template tag can be either default, ie. "body", or custumized, ie. "my_image".
     Template.body.helpers({username: function(){
@@ -50,6 +56,7 @@ if (Meteor.isClient) {
            //console.log(Meteor.user().emails[0].address);
             
             //quick fix: add a if condition
+            //Javascript: as long as it is NOT “false". the if block will execute. so it can be a value of “true”, it can also be a value of an object, as long as this is not a value of “false"
            if (Meteor.user()) {
                console.log(Meteor.user().emails[0].address );
                return Meteor.user().username;
@@ -101,11 +108,14 @@ if (Meteor.isClient) {
             //img_src = img_src.substring(8);
             img_alt = event.target.img_alt.value;
             console.log("src : " +  img_src + ", alt : " + img_alt);
-            Images.insert({
-                image_source:img_src,
-                image_alt:img_alt,
-                createdOn: new Date()
-            });
+            if (Meteor.user()) {
+                Images.insert({
+                    image_source:img_src,
+                    image_alt:img_alt,
+                    createdOn: new Date(),
+                    createdBy: Meteor.user()._id
+                });
+            }
             $("#image_add_form").modal("hide");
             return false; // if you omit this line, the browser will just reload after the submit button is created. "return a false value" is a usual practice when dealding with form submission.
         }
