@@ -6,3 +6,4 @@
 6. Nice bootstrap button.
 7. Delete an image, and use JQuery to show a slow animation for better UX.
 8. Rate stars for images, display the rating, and sort according the rating.
+9. Implement image adding with a Bootstrap Modal 

@@ -3,11 +3,22 @@
 </head>
 
 <body>
+    {{>image_add_form}}
   <h1>Welcome to Meteor!</h1>
   <div class="container"> <!-- in bootstrap, you should wrap the whole thing in a container-->
       {{> my_image}}
   </div>
 </body>
+
+<template name="image_add_form" >
+    <form class="js-add-image">
+        <input type = "text" name="img_src"/>
+        <br/>
+        <input type = "text" name="img_alt"/>
+        <button class="btn btn-success">save</button>
+
+    </form>
+</template>
 
 <template name="my_image">
 <div class="row">

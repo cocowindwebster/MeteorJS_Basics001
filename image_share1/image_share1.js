@@ -28,7 +28,8 @@ if (Meteor.isClient) {
     //Template.my_image.helpers({images:image_data}); 
     Template.my_image.helpers({images:
                               Images.find(
-                                  {}, {sort:{rating:-1}}
+                                  //{}, {sort:{rating:-1}}
+                                  {}, {sort:{createdOn : -1, rating : -1}} // sort by the date first, then by the rating
     )}); 
 
     Template.my_image.events({
@@ -60,6 +61,22 @@ if (Meteor.isClient) {
         }   
     });
 
+    Template.image_add_form.events({
+        'submit .js-add-image':function(event) {
+            var img_src, img_alt;
+            //when deal with FORM, you don't need JQuery to access DOM elements.
+            img_src = event.target.img_src.value;
+            //img_src = img_src.substring(8);
+            img_alt = event.target.img_alt.value;
+            console.log("src : " +  img_src + ", alt : " + img_alt);
+            Images.insert({
+                image_source:img_src,
+                image_alt:img_alt,
+                createdOn: new Date()
+            });
+            return false; // if you omit this line, the browser will just reload after the submit button is created. "return a false value" is a usual practice when dealding with form submission.
+        }
+    });
 }
 
 if (Meteor.isServer) {
