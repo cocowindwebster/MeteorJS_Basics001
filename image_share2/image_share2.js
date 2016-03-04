@@ -36,15 +36,33 @@ if (Meteor.isClient) {
            if (Session.get("userFilter")) {
               return Images.find({createdBy:Session.get("userFilter")}, {sort : {createdOn : -1, rating : -1}});
            } else {
-               return Images.find({}, {sort:{createdOn : -1, rating : -1}});    // sort by the date first, then by the rating
+              return Images.find({}, {sort:{createdOn : -1, rating : -1}});    // sort by the date first, then by the rating
            }
         },
+
+        filtering_images:function() {
+            if (Session.get("userFilter")) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+
         getUser:function (user_id) {
            var user = Meteor.users.findOne({_id:user_id}); 
            if (user) {
                return user.username;
            } else {
                return "anonymous";
+           }
+        },
+
+        getFilterUser:function (user_id) {
+           if (Session.get("userFilter")) {
+                var user = Meteor.users.findOne({_id:Session.get("userFilter")}); 
+                return user.username;
+           } else {
+                return "anonymous";
            }
         }
     }); 
@@ -62,7 +80,7 @@ if (Meteor.isClient) {
            //console.log(Meteor.user().emails[0].address);
             
             //quick fix: add a if condition
-            //Javascript: as long as it is NOT “false". the if block will execute. so it can be a value of “true”, it can also be a value of an object, as long as this is not a value of “false"
+            //Javascript: as long as it is NOT "false" and as long as it is NOT "undefined". the if block will execute. so it can  a value besides “true”.
            if (Meteor.user()) {
                console.log(Meteor.user().emails[0].address );
                return Meteor.user().username;
@@ -108,6 +126,10 @@ if (Meteor.isClient) {
         'click .js-set-image-filter':function(event) {
             //this is the data context for the template in which the event is occured. 
            Session.set("userFilter", this.createdBy); 
+        },
+
+        'click .js-unset-image-filter':function(event) {
+           Session.set("userFilter", undefined); 
         }
     });
 

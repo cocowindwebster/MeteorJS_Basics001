@@ -41,8 +41,15 @@
 
 <template name="my_image">
 {{#if currentUser}}
-<button class = "btn btn-success js-show-image-form">add image</button>
+    <button class = "btn btn-success js-show-image-form">add image</button>
 {{/if}}
+
+{{#if filtering_images}} 
+    <h4>
+        Images are filtered by {{getFilterUser}} <a href="#" class="js-unset-image-filter">Show All Images</a>
+    </h4>
+{{/if}}
+
 <div class="row">
 {{#each images}}
 <!--the id is created for JQuery, so that it can show delete animation -->
