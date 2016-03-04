@@ -4,3 +4,4 @@
 4. Add user field to the image database.
 5. Apply user filters to the display of image.
 6. Remove user filters
+7. Infinite scroll

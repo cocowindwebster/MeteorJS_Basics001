@@ -20,6 +20,22 @@ if (Meteor.isClient) {
     }
     ];
     
+    Session.set("imageLimit", 8);
+    var lastScrollTop = 0;
+    $(window).scroll(function(event) {
+        //console.log("scrollTop, A  = " + $(window).scrollTop() + ", B = " + $(window).height() + ", C = " + $(document).height());
+        // test if we are near the bottom of the window
+        if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+            var scrollTop = $(this).scrollTop();
+            console.log("scrollTop = " + scrollTop);
+            if (scrollTop > lastScrollTop)  {
+                Session.set("imageLimit", Session.get("imageLimit") + 4);
+                //console.log("scrolling and going down: " + Session.get("imageLimit"));
+            } 
+            lastScrollTop = scrollTop;
+        }
+    });
+
     //call a funciton, and some properties as argument.
     Accounts.ui.config({
         passwordSignupFields : "USERNAME_AND_EMAIL"
@@ -36,7 +52,7 @@ if (Meteor.isClient) {
            if (Session.get("userFilter")) {
               return Images.find({createdBy:Session.get("userFilter")}, {sort : {createdOn : -1, rating : -1}});
            } else {
-              return Images.find({}, {sort:{createdOn : -1, rating : -1}});    // sort by the date first, then by the rating
+              return Images.find({}, {sort:{createdOn : -1, rating : -1}, limit:Session.get("imageLimit")});    // sort by the date first, then by the rating, then limit records number.
            }
         },
 
