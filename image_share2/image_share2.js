@@ -32,7 +32,13 @@ if (Meteor.isClient) {
     // looks like a comma ending a line, can be either omitted or kept
     //Template.my_image.helpers({images:image_data}); 
     Template.my_image.helpers({
-        images: Images.find({}, {sort:{createdOn : -1, rating : -1}}),     // sort by the date first, then by the rating
+        images: function(){
+           if (Session.get("userFilter")) {
+              return Images.find({createdBy:Session.get("userFilter")}, {sort : {createdOn : -1, rating : -1}});
+           } else {
+               return Images.find({}, {sort:{createdOn : -1, rating : -1}});    // sort by the date first, then by the rating
+           }
+        },
         getUser:function (user_id) {
            var user = Meteor.users.findOne({_id:user_id}); 
            if (user) {
@@ -95,8 +101,13 @@ if (Meteor.isClient) {
              
         },
 
-        'click .js-show-image-form':function() {
+        'click .js-show-image-form':function(event) {
             $("#image_add_form").modal("show");
+        },
+
+        'click .js-set-image-filter':function(event) {
+            //this is the data context for the template in which the event is occured. 
+           Session.set("userFilter", this.createdBy); 
         }
     });
 
