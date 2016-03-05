@@ -7,6 +7,9 @@
    max-height : 300px;
 }
 
+.single-image{
+   max-width:100; 
+}
 body{
     padding-top : 60px;
 }

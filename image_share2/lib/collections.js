@@ -14,6 +14,7 @@ Images.allow({
             if (doc.createdBy == userId) {
                 return true;
             }
+        }
         return false;
    },
    update : function(userID, doc) {
@@ -21,6 +22,7 @@ Images.allow({
             if (doc.createdBy == userId) {
                 return true;
             }
+        }
         return false;
    } 
 });

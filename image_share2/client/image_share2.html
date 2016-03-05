@@ -1,19 +1,40 @@
 <head>
-  <title>image_share2</title>
+  <title>image_share</title>
 </head>
-
 <body>
-  {{>image_add_form}} 
+</body>
+
+
+<template name="ApplicationLayout" >
+    {{>yield "navbar"}}
+    {{>yield "main"}}
+</template>
+
+<template name="welcome" >
+      <div class="container ">
+          <div class="jumbotron">
+               <h1>Welcome to Image Share!{{username}}</h1> 
+               <a href = "/images" class = "btn btn-info">ENTER</a>
+          </div>
+      </div>
+</template>
+
+
+<template name="image" >
+    <div class="container ">
+        <h2>{{image_alt}}</h2>
+        <a href="/images"><img class="single-image" src = "/{{image_source}}"/></a> 
+    </div>
+</template>
+
+<template name="navbar" >
   <nav class = "navbar navbar-default navbar-fixed-top">
       <div class="container ">
           {{> loginButtons}}
       </div>
-</nav>
-  <div class="container"> <!-- in bootstrap, you should wrap the whole thing in a container-->
-      <h1>Welcome to Image Share!{{username}}</h1> 
-      {{> my_image}}
-  </div>
-</body>
+  </nav>
+</template>
+
 
 <template name="image_add_form" >
     <div class="modal fade" id = "image_add_form">
@@ -40,38 +61,40 @@
 </template>
 
 <template name="my_image">
-{{#if currentUser}}
-    <button class = "btn btn-success js-show-image-form">add image</button>
-{{/if}}
+    <div class="container js-container">
+        {{#if currentUser}}
+            <button class = "btn btn-success js-show-image-form">add image</button>
+        {{/if}}
 
-{{#if filtering_images}} 
-    <h4>
-        Images are filtered by {{getFilterUser}} <a href="#" class="js-unset-image-filter">Show All Images</a>
-    </h4>
-{{/if}}
+        {{#if filtering_images}} 
+            <h4>
+                Images are filtered by {{getFilterUser}} <a href="#" class="js-unset-image-filter">Show All Images</a>
+            </h4>
+        {{/if}}
 
-<div class="row">
-{{#each images}}
-<!--the id is created for JQuery, so that it can show delete animation -->
-<div class="col-xs-12 col-md-3" id = "{{_id}}">
-        <!-- if a narrow screen, use all 12 columns to display one image, if a mid-size screen, use 3 columns -->
-        <div class="thumbnail">
-            <!-- a simple js funciton in normal js way
-            <img onclick = "alert('hello!')" src = "{{image_source}}" alt = "{{image_alt}}"/> 
-            -->
-            <!-- a simple js funciton in Meteor way -->
-            <img class="js-image thumbnail-img" src = "{{image_source}}" alt = "{{image_alt}}"/> 
-            <div class="caption">
-                <h3>Rating : {{rating}}</h3>
-                <p>{{image_alt}}</p>
-                <!-- call a function "getUser()", and pass argument -->
-                <a href="#" class="js-set-image-filter"><p>User: {{getUser createdBy}}</p> </a>
-                <!-- passing argument, so "id = _id" is passed to the starsRating template --> 
-                <p>{{>starsRating mutable=true class="js-rate-image" id=_id}}</p>
-                <button class="js-del-image btn btn-warning"> delete </button>
-            </div>
-        </div>
-    </div> <!-- col -->
-{{/each}}
-</div> <!-- row -->
+        <div class="row">
+            {{#each images}}
+            <!--the id is created for JQuery, so that it can show delete animation -->
+            <div class="col-xs-12 col-md-3" id = "{{_id}}">
+                    <!-- if a narrow screen, use all 12 columns to display one image, if a mid-size screen, use 3 columns -->
+                    <div class="thumbnail">
+                        <!-- a simple js funciton in normal js way
+                        <img onclick = "alert('hello!')" src = "{{image_source}}" alt = "{{image_alt}}"/> 
+                        -->
+                        <!-- a simple js funciton in Meteor way -->
+                        <a href="/image/{{_id}}"><img class="js-image thumbnail-img" src = "{{image_source}}" alt = "{{image_alt}}"/></a> 
+                        <div class="caption">
+                            <h3>Rating : {{rating}}</h3>
+                            <p>{{image_alt}}</p>
+                            <!-- call a function "getUser()", and pass argument -->
+                            <a href="#" class="js-set-image-filter"><p>User: {{getUser createdBy}}</p> </a>
+                            <!-- passing argument, so "id = _id" is passed to the starsRating template --> 
+                            <p>{{>starsRating mutable=true class="js-rate-image" id=_id}}</p>
+                            <button class="js-del-image btn btn-warning"> delete </button>
+                        </div>
+                    </div>
+             </div> <!-- col -->
+            {{/each}}
+        </div> <!-- row -->
+</div>
 </template>

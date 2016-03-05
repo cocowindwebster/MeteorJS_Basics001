@@ -15,6 +15,41 @@ var image_data = [
 }
 ];
 
+
+//Routing
+Router.configure({
+ layoutTemplate : 'ApplicationLayout'
+});
+
+Router.route('/', function () {
+  this.render('welcome',{
+      to:"main"
+  });
+});
+              
+Router.route('/images', function () {
+  this.render('navbar',{
+      to:"navbar"
+  });
+  this.render('my_image',{
+      to:"main"
+  });
+});
+
+
+Router.route('/image/:_id', function () {
+  this.render('navbar',{
+      to:"navbar"
+  });
+  this.render('image',{
+      to:"main",
+      data:function(){
+        return Images.findOne({_id:this.params._id});
+      }
+  });
+});
+
+//Infinite Scrolll
 Session.set("imageLimit", 8);
 var lastScrollTop = 0;
 $(window).scroll(function(event) {
@@ -31,6 +66,7 @@ $(window).scroll(function(event) {
     }
 });
 
+//Accounts Config
 //call a funciton, and some properties as argument.
 Accounts.ui.config({
     passwordSignupFields : "USERNAME_AND_EMAIL"
