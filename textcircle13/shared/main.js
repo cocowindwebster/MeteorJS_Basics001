@@ -1,5 +1,5 @@
 // You can regard Meteor.methods as a way to control WRITE access to the database.
-// publish and substribe is to control READ access to the database.
+// publish and subscribe is to control READ access to the database.
 
 Meteor.methods({
     addComment:function(comment){
